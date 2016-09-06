@@ -1,6 +1,6 @@
 body {
     font-family: Georgia, serif;
-    background-color: #040F0F;
+    background-color: #141414;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -12,14 +12,14 @@ ul {
 }
 
 a {
-    color: #248232;
+    color: #5F4842;
     text-decoration: none;
     display: block;
     padding: 3px;
 }
 
 a:hover {
-    color: #2BA84A;
+    color: #AF8D86;
 
 }
 
