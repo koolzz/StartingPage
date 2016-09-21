@@ -1,63 +1,69 @@
-function main(){
+$(function() {
+    $('body').css('background-image', 'url("' + "background.jpg" + '")');
     updateTime();
     addLinks();
+    updateWeather();
+});
 
-}
+function updateTime() {
+    var date=new Date();
+    var hour=date.getHours();
+    var min=date.getMinutes();
 
-function updateTime(){
-  var date=new Date()
-  var hour=date.getHours();
-  var min=date.getMinutes();
+    var time="";
+    time=(hour<10)?"0"+hour:hour;
+    time+=":";
+    time+=(min<10)?"0"+min:min;
 
-  var time="";
-  if(hour<10)
-    time+="0";
-  time+=hour+":";
-  if(min<10)
-    time+="0"
-  time+=min;
+    $("#clock").html(time);
 
-  document.getElementById("clock").innerHTML=time;
-
-  setTimeout(function() { updateTime(); }, 400);
-
+    setTimeout(updateTime, 400);
 }
 
 function addLinks(){
 
-var sb = window.chrome.embeddedSearch.searchBox;
-sb.startCapturingKeyStrokes();
 
-    var name=["reddit","vk","imgur"]
-    var link=["https://www.reddit.com/r/funny/","https://vk.com/feed","http://imgur.com/"]
+    var name=[  ["vk","facebook"],
+                ["reddit","imgur"],
+                ["pandora"] ];
+    var link=[  ["https://vk.com/feed","https://www.facebook.com"],
+                ["https://www.reddit.com/r/all","http://imgur.com"],
+                ["http://www.pandora.com/station/play/1662888871608872951"] ];
 
-    for( i=0;i<3;i++){
-        /*
-        var p = document.createElement('a');
-        var linkText = document.createTextNode(name[i]);
-        p.appendChild(linkText);
-        p.title = "my title text";
-        p.href = link[i];
-        document.body.appendChild(p);*/
-         document.getElementById("link"+i).href=link[i];
 
+    var content = "<table>"
+    console.log(name.length);
+    for(y=0; y<2; y++){
+        content+='<tr>';
+
+        console.log(name[y].length);
+        for(x=0;x<3;x++){
+            if(name[x][y]!= null){
+                console.log(link[x][y]);
+                var href='<a href="'+link[x][y]+'">'+name[x][y]+'</a>';
+                content += '<td>'+href+'</td>';
+            }
+        }
+
+        content+='</tr>';
     }
+    content += "</table>"
+
+    $('#link').append(content);
 }
 
-function addImg(){
-    var img = document.createElement("img");
-    img.src = "star.png";
-    img.id="star"
-    img.style.position= 'relative';
-    img.style.left = '0px';
-    img.style.top = '0px';
-    document.body.appendChild(img);
-    moveStar();
-}
+function updateWeather(){
+    $.simpleWeather({
+      location: 'Arlington, VA',
+      woeid: '',
+      unit: 'c',
+      success: function(weather) {
+        html = '<p>'+weather.temp+'&deg;'+weather.units.temp+'</p>';
 
-function moveImg(){
-    var img= document.getElementById("star");
-    img.style.left = parseInt(img.style.left) + 1 + 'px';
-    img.style.top = parseInt(img.style.left) + 0.7 + 'px';
-    setTimeout(function() { moveStar(); }, 10);
-    }
+        $("#weather").html(html);
+      },
+      error: function(error) {
+        $("#weather").html('<p>'+error+'</p>');
+      }
+    });
+}

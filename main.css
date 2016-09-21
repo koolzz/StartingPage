@@ -1,6 +1,7 @@
 body {
     font-family: Georgia, serif;
     background-color: #141414;
+    background-size: cover;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -24,7 +25,7 @@ a:hover {
 }
 
 table{
-    border-spacing: 50px 25px;
+    border-spacing: 50px 5px;
     margin: 0 auto;
 }
 
@@ -43,12 +44,18 @@ table{
     height: 100px;
     width: 100px;
 }
+#weather{
+    color: #FCFFFC;
+    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
 
+    font-size: 50px;
+    letter-spacing: 2px;
+}
 .time {
     position: relative;
     color: #FCFFFC;
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
-
+    font-weight: bold;
     font-size: 150px;
     letter-spacing: 2px;
 }
