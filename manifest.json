@@ -1,12 +1,12 @@
 {
-  "name": "Blank new tab page",
-  "description": "Override the new tab page with a blank one",
-  "version": "0.2",
+  "name": "New starting page",
+  "description": "Override the new tab page with a new one",
+  "version": "0.3",
   "incognito": "split",
   "chrome_url_overrides": {
     "newtab": "index.html"
-  },
-"content_security_policy":"script-src 'self' https://query.yahooapis.com; object-src 'self'",
-
+},
+"icons": { 
+          "128": "icon128.png" },
   "manifest_version": 2
 }

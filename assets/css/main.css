@@ -1,0 +1,72 @@
+body {
+
+    background-color: #414A4C;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+}
+
+
+
+.time {
+    position: relative;
+    color: #FCFFFC;
+    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 150px;
+
+    letter-spacing: 2px;
+}
+.hexagone{
+    margin-top: 50px;
+        position: relative;
+
+}
+.top-l,
+.top-r,
+.mid-l,
+.mid,
+.mid-r,
+.bot-l,
+.bot-r
+{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+}
+.top-l{
+    left: 0;
+    right: 128px;
+}
+.top-r{
+    left: 128px;
+    right: 0;
+}
+.mid{
+    left: 0;
+    right: 0;
+    top: 111px;
+
+}
+.mid-l{
+    left: 0;
+    right: 256px;
+    top: 111px;
+}
+.mid-r{
+    right: 0;
+    left: 256px;
+    top: 111px;
+}
+.bot-l{
+    left: 0;
+    right: 128px;
+    top: 222px;
+}
+.bot-r{
+    left: 128px;
+    right: 0;
+    top: 222px;
+}
