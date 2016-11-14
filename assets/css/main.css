@@ -8,7 +8,49 @@ body {
 
 }
 
+#container{
+    width: 100%;
+    text-align: center;
+}
+#left {
+    float:left;
+    text-align: left;
+    width:25%;
+}
 
+#center {
+    display: inline-block;
+    margin:0 auto;
+    width:386px;
+    height:446px;
+}
+
+#right {
+    float:right;
+    width:25%;
+}
+
+.text-transparent{
+    background: transparent;
+
+    /*
+    border-style: line;
+    border-color: #2D3A3A;
+    */
+
+    padding-bottom: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+
+    color: #FCFFFC;
+    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+
+    letter-spacing: 1px;
+
+}
 
 .time {
     position: relative;
@@ -20,8 +62,9 @@ body {
     letter-spacing: 2px;
 }
 .hexagone{
+    margin:0 auto;
     margin-top: 50px;
-        position: relative;
+    position: relative;
 
 }
 .top-l,

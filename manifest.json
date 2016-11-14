@@ -3,10 +3,13 @@
   "description": "Override the new tab page with a new one",
   "version": "0.3",
   "incognito": "split",
+  "permissions": [
+  "storage"
+    ],
   "chrome_url_overrides": {
     "newtab": "index.html"
 },
-"icons": { 
+"icons": {
           "128": "icon128.png" },
   "manifest_version": 2
 }
