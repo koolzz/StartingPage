@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="assets/css/hexagons.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
+
     <script type="text/javascript" src="assets/js/hexagons.js"></script>
     <script type="text/javascript" src="assets/js/fontawesome.js"></script>
     <script type="text/javascript" src="assets/js/script.js" ></script>
@@ -15,20 +16,24 @@
 <div class="time" id="clock" >:</div>
 <div id="container">
     <div id="left" >
-        <textarea id="list" class="text-transparent" cols="25" var rows="5" style="overflow:hidden" spellcheck="false"></textarea>
+        <div class="todolist" style="display:none">
+        <ul id ="todolist">
+            </ul>
+        <textarea id="input" class="text-transparent" cols="25"; var rows="5" style="overflow:hidden" spellcheck="false" placeholder="..."></textarea>
+        </div>
     </div>
 
     <div class="hexagone" id=center>
-        <a href="#" class="mid-l"><span class="hb hb-md spin"><i class="fa fa-facebook"></i></span></a>
+        <a href="#" class="mid-l"><span class="hb hb-md spin-icon"><i class="fa fa-facebook"></i></span></a>
         <a href="#" class="mid"><span class="hb hb-md spin-icon"><i class="fa fa-github"></i></span></a>
-        <a href="#" class="top-r"><span class="hb hb-md spin"><i class="fa fa-reddit-alien"></i></span></a>
-        <a href="#" class="top-l"><span class="hb hb-md spin"><i class="fa fa-calendar"></i></span></a>
+        <a href="#" class="top-r"><span class="hb hb-md spin-icon"><i class="fa fa-reddit-alien"></i></span></a>
+        <a href="#" class="top-l"><span class="hb hb-md spin-icon"><i class="fa fa-calendar"></i></span></a>
         <a href="#" class="mid-r"><span class="hb hb-md spin-icon"><i class="fa fa-vk"></i></span></a>
-        <a href="#" class="bot-l"><span class="hb hb-md spin"><i class="fa fa-envelope-o"></i></span></a>
-        <a href="#" class="bot-r"><span class="hb hb-md spin"><i class="fa fa-graduation-cap"></i></span></a>
+        <a href="#" class="bot-l"><span class="hb hb-md spin-icon"><i class="fa fa-envelope-o"></i></span></a>
+        <a href="#" class="bot-r"><span class="hb hb-md spin-icon"><i class="fa fa-graduation-cap"></i></span></a>
     </div>
     <div id="right">
-        :
+
     </div>
 </div>
 </body>

@@ -1,14 +1,42 @@
 $().ready(function() {
-  //$('body').css('background-image', 'url("' + "background.jpg" + '")');
+  //$('body').css('background-image', 'url("' + "RLYWjMi.jpg" + '")');
+  //$("#left").hide();
   updateTime();
   updateLinks();
 
-  load();
-  $('#list').keydown(function (event) {
+
+  $('#input').keydown(function (event) {
      var keypressed = event.keyCode || event.which;
      if (keypressed == 13) {
-         saveChanges();
+         addVal();
+         $('#input').val('');
+         return false;//negate newline
      }
+ });
+ $(this).click(function(e) {
+     var container= new Array()
+     //container.push($("#clock"));
+
+     container.push($("#left"));
+
+     $.each(container, function(key,value){
+
+         if(!$(value).is(e.target)
+         && $(value).has(e.target).length === 0){
+             if($(".todolist").is(":visible")) {
+                 saveChanges();
+                $(".todolist").hide();
+             }
+             else {
+                load();
+                $(".todolist").show();
+             }
+
+         }
+
+     });
+
+
  });
 
 });
@@ -42,28 +70,56 @@ function updateTime() {
 
   setTimeout(updateTime, 400);
 }
-
-function saveChanges() {
-  // Get a value saved in a form.
-
-  var keywords = $.trim($("textarea").val());
-
-    chrome.storage.sync.set({'channels': keywords});
-
-}
-function load() {
-    var channels = "";
-    chrome.storage.sync.get('channels', function (result) {
-        channels = result.channels;
-        //alert(result.channels);
-        if(!channels)
-            $("#list").val("empty");
-        else {
-            $("#list").val(channels);
+function addVal(){
+    var keyword = $.trim($("textarea").val());
+    if(keyword){
+        if(keyword=="clear"){
+             $("#todolist").empty();
         }
-    });
+        else{
+          $("#todolist").append("<li>"+keyword+"</li>");
+        }
+
+    }
+    saveChanges();
+}
+function saveChanges() {
+    var value="";
+     $('#todolist').each(function(){
+        $("li", this).each(function(i) {
+            value+=$(this).text()+";";
+        });
+     });
+     chrome.storage.sync.set({"todolist": value} );
+
 }
 
+function load() {
+    $("#todolist").empty();
+    chrome.storage.sync.get("todolist",function (result){
+        var array = result.todolist.split(';');
+
+        $.each(array,function(key,value){
+            value.trim();
+            if(value){
+                $("#todolist").append("<li>"+value+"</li>");
+            }
+        });
+    } );
+}
+function setbg(color)
+{
+    document.getElementById("input").style.background=color
+}
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  for (key in changes) {
+    var storageChange = changes[key];
+    if(key=="todolist"){
+        load();
+    }
+  }
+
+});
 
 function updateWeather() {
   $.simpleWeather({
