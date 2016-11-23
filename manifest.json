@@ -1,15 +1,17 @@
 {
-  "name": "New starting page",
-  "description": "Override the new tab page with a new one",
-  "version": "0.3",
-  "incognito": "split",
-  "permissions": [
-  "storage"
+    "name": "New starting page",
+    "description": "Override the new tab page with a new one",
+    "version": "0.3",
+    "incognito": "split",
+    "permissions": [
+        "storage"
     ],
-  "chrome_url_overrides": {
-    "newtab": "index.html"
-},
-"icons": {
-          "128": "icon128.png" },
-  "manifest_version": 2
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "icons": {
+        "128": "icon128.png"
+    },
+    "content_security_policy":"script-src 'self' https://query.yahooapis.com; object-src 'self'",
+    "manifest_version": 3
 }

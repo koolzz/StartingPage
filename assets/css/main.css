@@ -1,5 +1,4 @@
 body {
-
     background-color: #414A4C;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -7,67 +6,92 @@ body {
     background-size: cover;
     height: 100%;
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     text-align: center;
 
 }
 
-#container{
+#container {
     width: 100%;
     text-align: center;
     margin-top: 50px;
 }
+
 #left {
-    float:left;
+    float: left;
     text-align: left;
-    width:25%;
+    width: 25%;
     height: 500px;
 }
 
 #center {
     display: inline-block;
-    margin:0 auto;
-    width:386px;
-    height:446px;
+    margin: 0 auto;
+    width: 386px;
+    height: 446px;
 }
 
 #right {
-    float:right;
-    width:25%;
-    width:25%;
+    float: right;
+    width: 25%;
+    width: 25%;
     height: 100px;
+}
+.console{
+    padding:0 0 0 15px;
+    position:relative;
 
 }
+.console:before{
+    content:">";
 
-.text-transparent{
+	position:absolute;
+	top: 1.2px;
+	left: 30%;
+	color:#fff;
 
+    line-height: 1.8;
+}
+.input{
+    border: 0 none;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0;
+    text-indent: 4px;
+    margin: 0;
+    width: 40%;
+    color: #f7f7f7;
+    background: #333;
+    resize: none;
+
+    line-height: 1.8;
+}
+.text-transparent {
     background: transparent;
     border: 2px solid #303030;
     width: 250px;
-	height: 20px;
+    height: 20px;
     padding-left: 5px;
     margin-left: 20px;
     /*
     border-style: line;
     border-color: #2D3A3A;
     */
-
     outline: none;
     resize: none;
-
     color: inherit;
     font-family: inherit;
     font-weight: inherit;
     font-size: 15px;
-
     letter-spacing: inherit;
 }
 
-.todolist{
+.todolist {
     color: #FCFFFC;
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
     font-weight: bold;
     font-size: 20px;
-
     letter-spacing: 1px;
 }
 
@@ -77,57 +101,70 @@ body {
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
     font-weight: bold;
     font-size: 150px;
-
     letter-spacing: 2px;
 }
-.hexagone{
-    margin:0 auto;
+
+.topPanel p{
+    margin: 0;
+    display: inline;
+}
+#weather{
+    color: #FCFFFC;
+    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+    letter-spacing: 2px;
+}
+#weather p{
+    margin: 0;
+}
+.hexagone {
+    margin: 0 auto;
     margin-top: 50px;
     position: relative;
-
 }
-.top-l,
-.top-r,
-.mid-l,
-.mid,
-.mid-r,
-.bot-l,
-.bot-r
-{
+
+.top-l, .top-r, .mid-l, .mid, .mid-r, .bot-l, .bot-r {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
 }
-.top-l{
+
+.top-l {
     left: 0;
     right: 128px;
 }
-.top-r{
+
+.top-r {
     left: 128px;
     right: 0;
 }
-.mid{
+
+.mid {
     left: 0;
     right: 0;
     top: 111px;
-
 }
-.mid-l{
+
+.mid-l {
     left: 0;
     right: 256px;
     top: 111px;
 }
-.mid-r{
+
+.mid-r {
     right: 0;
     left: 256px;
     top: 111px;
 }
-.bot-l{
+
+.bot-l {
     left: 0;
     right: 128px;
     top: 222px;
 }
-.bot-r{
+
+.bot-r {
     left: 128px;
     right: 0;
     top: 222px;

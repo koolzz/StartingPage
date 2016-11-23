@@ -1,138 +1,181 @@
 $().ready(function() {
-  //$('body').css('background-image', 'url("' + "RLYWjMi.jpg" + '")');
-  //$("#left").hide();
-  updateTime();
-  updateLinks();
+    //$('body').css('background-image', 'url("' + "9pd1dtY.jpg" + '")');
+    updateTime();
+    updateLinks();
+    updateWeather();
+    $(document).keydown(function(event) {
+        var keypressed = event.keyCode || event.which;
+        if (keypressed == 46) {
+            $("li", "#todolist").each(function(i) {
+                var target = $(this);
+                console.log(target.css("color"));
+                if (target.css("color") == 'rgba(125, 184, 196, 0.498039)')
+                    $(this).remove();
+            });
+        }
+    });
+    $("#todolist").click(function(event) {
+        var target = $(event.target);
+        if (target.is("li")) {
+
+            console.log(target.css("color"));
+            if (target.css("color") == 'rgba(125, 184, 196, 0.498039)') {
+                target.css("color", '');
+            } else {
+                target.css("color", 'rgba(125, 184, 196, 0.5)');
+            }
+        }
+    });
+
+    $('#console').keydown(function(event) {
+        var keypressed = event.keyCode || event.which;
+        if (keypressed == 13) {
+            addVal();
+            $('#console').val('');
+            return false; //negate newline
+        }
+    });
+
+    $(this).click(function(e) {
+        var container = new Array()
+        container.push($("#center"));
+
+        $.each(container, function(key, value) {
+
+            if (!$(value).is(e.target) &&
+                $(value).has(e.target).length === 0) {
+                    $(".console").css("visibility","visible");
+                    $("#console").focus();
+
+            }
+
+        });
 
 
-  $('#input').keydown(function (event) {
-     var keypressed = event.keyCode || event.which;
-     if (keypressed == 13) {
-         addVal();
-         $('#input').val('');
-         return false;//negate newline
-     }
- });
- $(this).click(function(e) {
-     var container= new Array()
-     //container.push($("#clock"));
-
-     container.push($("#left"));
-
-     $.each(container, function(key,value){
-
-         if(!$(value).is(e.target)
-         && $(value).has(e.target).length === 0){
-             if($(".todolist").is(":visible")) {
-                 saveChanges();
-                $(".todolist").hide();
-             }
-             else {
-                load();
-                $(".todolist").show();
-             }
-
-         }
-
-     });
-
-
- });
+    });
 
 });
-function updateLinks(){
+
+function updateLinks() {
     var link = [
-        ["top-l","https://calendar.google.com/calendar/render"],
-        ["top-r","https://www.reddit.com/r/funny/"],
-        ["mid-l","https://www.facebook.com/"],
-        ["mid","https://github.com/"],
-        ["mid-r","https://vk.com/feed"],
-        ["bot-l","https://mail.google.com/mail/u/0/#inbox"],
-        ["bot-r","https://blackboard.gwu.edu/webapps/login/"],
+        ["top-l", "https://calendar.google.com/calendar/render"],
+        ["top-r", "https://www.reddit.com/r/funny/"],
+        ["mid-l", "https://www.facebook.com/"],
+        ["mid", "https://github.com/"],
+        ["mid-r", "https://vk.com/feed"],
+        ["bot-l", "https://mail.google.com/mail/u/0/#inbox"],
+        ["bot-r", "https://blackboard.gwu.edu/webapps/login/"],
     ]
-    for(i=0;i<link.length;i++){
-        $("."+link[i][0]).attr("href",link[i][1]);
+    for (i = 0; i < link.length; i++) {
+        $("." + link[i][0]).attr("href", link[i][1]);
     }
 
 }
+
 function updateTime() {
 
-  var date = new Date();
-  var hour = date.getHours();
-  var min = date.getMinutes();
+    var date = new Date();
+    var hour = date.getHours();
+    var min = date.getMinutes();
 
-  var time = "";
-  time = (hour < 10) ? "0" + hour : hour;
-  time += ":";
-  time += (min < 10) ? "0" + min : min;
+    var time = ((hour < 10) ? "0" + hour : hour) + ":";
+    time += (min < 10) ? "0" + min : min;
 
-  $("#clock").html(time);
+    $("#clock").html(time);
 
-  setTimeout(updateTime, 400);
+    setTimeout(updateTime, 400);
 }
-function addVal(){
-    var keyword = $.trim($("textarea").val());
-    if(keyword){
-        if(keyword=="clear"){
-             $("#todolist").empty();
-        }
-        else{
-          $("#todolist").append("<li>"+keyword+"</li>");
-        }
 
+function addVal() {
+    var keyword = $.trim($("textarea").val()).split(' ');
+    switch (keyword[0]) {
+        case 'clear':
+            $("#todolist").empty();
+            break;
+        case 'info':
+            showInfo();
+            return;
+            break;
+        case 'clear':
+            $("#todolist").empty();
+            break;
+        case 'del':
+            $("#todolist li").eq(parseInt(keyword[1],10)).remove();
+            break;
+        default:
+            $("#todolist").append("<li>" + keyword + "</li>");
     }
     saveChanges();
 }
+
+function showInfo() {
+    if ($(".todolist").css("visibility")=="hidden") {
+        saveChanges();
+        $(".todolist").css("visibility","visible");
+    } else {
+        load();
+        $(".todolist").css("visibility","hidden");
+    }
+    if ($("#weather").css("visibility")=="hidden") {
+        $("#weather").css("visibility","visible");
+    } else {
+        $("#weather").css("visibility","hidden");
+    }
+}
+
 function saveChanges() {
-    var value="";
-     $('#todolist').each(function(){
+    var value = "";
+    $('#todolist').each(function() {
         $("li", this).each(function(i) {
-            value+=$(this).text()+";";
+            value += $(this).text() + ";";
         });
-     });
-     chrome.storage.sync.set({"todolist": value} );
+    });
+    chrome.storage.sync.set({
+        "todolist": value
+    });
 
 }
 
 function load() {
     $("#todolist").empty();
-    chrome.storage.sync.get("todolist",function (result){
+    chrome.storage.sync.get("todolist", function(result) {
         var array = result.todolist.split(';');
 
-        $.each(array,function(key,value){
+        $.each(array, function(key, value) {
             value.trim();
-            if(value){
-                $("#todolist").append("<li>"+value+"</li>");
+            if (value) {
+                $("#todolist").append("<li>" + value + "</li>");
             }
         });
-    } );
+    });
 }
-function setbg(color)
-{
-    document.getElementById("input").style.background=color
+
+function setbg(color) {
+    document.getElementById("input").style.background = color
 }
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  for (key in changes) {
-    var storageChange = changes[key];
-    if(key=="todolist"){
-        load();
+    for (key in changes) {
+        var storageChange = changes[key];
+        if (key == "todolist") {
+            load();
+        }
     }
-  }
 
 });
 
 function updateWeather() {
-  $.simpleWeather({
-    location: 'Arlington, VA',
-    woeid: '',
-    unit: 'c',
-    success: function(weather) {
-      html = '<p>' + weather.temp + '&deg;' + weather.units.temp + '</p>';
+    $.simpleWeather({
+        location: 'Arlington, VA',
+        woeid: '',
+        unit: 'c',
+        success: function(weather) {
+            html = weather.temp + '&deg;' + weather.units.temp;
 
-      $("#weather").html(html);
-    },
-    error: function(error) {
-      $("#weather").html('<p>' + error + '</p>');
-    }
-  });
+            $("#weather").html(html);
+
+        },
+        error: function(error) {
+            $("#weather").html('<p>' + error + '</p>');
+        }
+    });
 }
