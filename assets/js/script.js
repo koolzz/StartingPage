@@ -1,5 +1,5 @@
 $().ready(function() {
-    //$('body').css('background-image', 'url("' + "9pd1dtY.jpg" + '")');
+    //$('body').css('background-image', 'url("' + "fyzWfa7.png" + '")');
     updateTime();
     updateLinks();
     updateWeather();
@@ -111,10 +111,10 @@ function addVal() {
 
 function showInfo() {
     if ($(".todolist").css("visibility")=="hidden") {
-        saveChanges();
+        load();
         $(".todolist").css("visibility","visible");
     } else {
-        load();
+        saveChanges();
         $(".todolist").css("visibility","hidden");
     }
     if ($("#weather").css("visibility")=="hidden") {
