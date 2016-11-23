@@ -87,6 +87,7 @@ function updateTime() {
 }
 
 function addVal() {
+    var originalString=$.trim($("textarea").val());
     var keyword = $.trim($("textarea").val()).split(' ');
     switch (keyword[0]) {
         case 'clear':
@@ -103,7 +104,7 @@ function addVal() {
             $("#todolist li").eq(parseInt(keyword[1],10)).remove();
             break;
         default:
-            $("#todolist").append("<li>" + keyword + "</li>");
+            $("#todolist").append("<li>" + originalString + "</li>");
     }
     saveChanges();
 }
