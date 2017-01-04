@@ -3,6 +3,7 @@ $().ready(function() {
     updateTime();
     updateLinks();
     updateWeather();
+    load();
     $(document).keydown(function(event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 46) {
@@ -138,10 +139,9 @@ function saveChanges() {
 }
 
 function load() {
-    $("#todolist").empty();
     chrome.storage.sync.get("todolist", function(result) {
+        $("#todolist").empty();
         var array = result.todolist.split(';');
-
         $.each(array, function(key, value) {
             value.trim();
             if (value) {
@@ -151,9 +151,6 @@ function load() {
     });
 }
 
-function setbg(color) {
-    document.getElementById("input").style.background = color
-}
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
         var storageChange = changes[key];
