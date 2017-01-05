@@ -35,35 +35,29 @@ body {
 #right {
     float: right;
     width: 25%;
-    width: 25%;
     height: 100px;
 }
 #todolistHeading{
     padding-left: 20px;
     font-weight: bold;
 }
-.console{
-    padding:0 0 0 15px;
-    position:relative;
-
-}
-#console:before{
-    content:">";
-	color:#fff;
-}
-.input{
+#console{
     border: 0 none;
     outline: 0 none;
     overflow: hidden;
     padding: 0;
     text-indent: 4px;
     margin: 0;
-    width: 40%;
+    width: 22%;
+    opacity: 0.25;
     color: #f7f7f7;
     background: #333;
     resize: none;
-
     line-height: 1.8;
+    transition: opacity 0.4s ease;
+}
+#console:focus{
+    opacity: 1;
 }
 .text-transparent {
     background: transparent;
@@ -99,7 +93,7 @@ body {
     font-weight: bold;
     font-size: 150px;
     letter-spacing: 2px;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 .topPanel p{

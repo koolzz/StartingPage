@@ -11,6 +11,7 @@ $().ready(function() {
                 if (target.css("color") == 'rgba(125, 184, 196, 0.498039)')
                     $(this).remove();
             });
+            saveChanges();
         }
     });
     $("#todolist").click(function(event) {
@@ -32,7 +33,15 @@ $().ready(function() {
             return false; //negate newline
         }
     });
-    $("#showToDoList").click(function(e){
+    $('#console').focus(function() {
+        $('#console').attr('placeholder', '');
+    })
+    $('#console').blur(function() {
+        $('#console').val('');
+        $('#console').attr('placeholder', '> ...');
+    });
+
+    $("#showToDoList").click(function(e) {
         toggleToDoList();
     });
     /*
@@ -84,45 +93,55 @@ function updateTime() {
 }
 
 function addVal() {
-    var originalString=$.trim($("textarea").val());
+    var originalString = $.trim($("textarea").val());
     var keyword = $.trim($("textarea").val()).split(' ');
     switch (keyword[0]) {
-        case 'clear':
+        case '!clear':
             $("#todolist").empty();
+            saveChanges();
             break;
-        case 'info':
+        case '!info':
             showInfo();
             return;
             break;
-        case 'clear':
-            $("#todolist").empty();
-            break;
-        case 'del':
-            $("#todolist li").eq(parseInt(keyword[1],10)).remove();
+        case '!del':
+            $("#todolist li").eq(parseInt(keyword[1], 10)).remove();
+            saveChanges();
             break;
         default:
-            $("#todolist").append("<li>" + originalString + "</li>");
+            var li=$('<li>')
+                .text(originalString);
+            if ($(".todolist").css("display") == "none") {
+                load(function() {
+                    $(".todolist").fadeIn(400);
+                    $("#todolist").append(li);
+                    saveChanges();
+                });
+            } else {
+                $("#todolist").append(li);
+                saveChanges();
+            }
     }
-    saveChanges();
 }
 
 function showInfo() {
-    if ($(".todolist").css("visibility")=="hidden") {
+    if ($(".todolist").css("visibility") == "hidden") {
         load();
-        $(".todolist").css("visibility","visible");
+        $(".todolist").css("visibility", "visible");
     } else {
         saveChanges();
-        $(".todolist").css("visibility","hidden");
+        $(".todolist").css("visibility", "hidden");
     }
-    if ($("#weather").css("visibility")=="hidden") {
-        $("#weather").css("visibility","visible");
+    if ($("#weather").css("visibility") == "hidden") {
+        $("#weather").css("visibility", "visible");
     } else {
-        $("#weather").css("visibility","hidden");
+        $("#weather").css("visibility", "hidden");
     }
 }
-function toggleToDoList(){
-    if ($(".todolist").css("display")=="none") {
-        load(function(){
+
+function toggleToDoList() {
+    if ($(".todolist").css("display") == "none") {
+        load(function() {
             $(".todolist").fadeIn(400);
         });
     } else {
@@ -141,20 +160,25 @@ function saveChanges() {
     chrome.storage.sync.set({
         "todolist": value
     });
-
 }
 
 function load(callback) {
     chrome.storage.sync.get("todolist", function(result) {
+        var temp=$("#todolist").children();
+        console.log($("#todolist").children());
         $("#todolist").empty();
-        var array = result.todolist.split(';');
+        var children=$("#todolist").find('li');
+
+        var array = result.todolist.split(';');console.log(array);
         $.each(array, function(key, value) {
             value.trim();
             if (value) {
-                $("#todolist").append("<li>" + value + "</li>");
+                var li=$('<li>')
+                    .text(value);;
+                $("#todolist").append(li);
             }
         });
-        if(callback){
+        if (callback) {
             callback();
         }
     });
@@ -167,7 +191,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
             load();
         }
     }
-
 });
 
 function updateWeather() {
