@@ -1,5 +1,4 @@
 $().ready(function() {
-    //$('body').css('background-image', 'url("' + "fyzWfa7.png" + '")');
     updateTime();
     updateLinks();
     //updateWeather();
@@ -43,23 +42,7 @@ $().ready(function() {
 
     $("#showToDoList").click(function(e) {
         toggleToDoList();
-    });
-    /*
-    $(this).click(function(e) {
-        var container = new Array()
-        container.push($("#center"));
-
-        $.each(container, function(key, value) {
-
-            if (!$(value).is(e.target) &&
-                $(value).has(e.target).length === 0) {
-                    $(".console").css("visibility","visible");
-                    $("#console").focus();
-            }
-        });
-    });*/
-
-
+    }); 
 });
 
 function updateLinks() {
@@ -73,7 +56,7 @@ function updateLinks() {
         ["bot-r", "https://blackboard.gwu.edu/webapps/login/"],
     ]
     for (i = 0; i < link.length; i++) {
-        $("." + link[i][0]).attr("href", link[i][1]);
+        $("." + link[i][0]).attr("href",link[i][1]);
     }
 
 }
@@ -100,10 +83,6 @@ function addVal() {
             $("#todolist").empty();
             saveChanges();
             break;
-        case '!info':
-            showInfo();
-            return;
-            break;
         case '!del':
             $("#todolist li").eq(parseInt(keyword[1], 10)).remove();
             saveChanges();
@@ -121,21 +100,6 @@ function addVal() {
                 $("#todolist").append(li);
                 saveChanges();
             }
-    }
-}
-
-function showInfo() {
-    if ($(".todolist").css("visibility") == "hidden") {
-        load();
-        $(".todolist").css("visibility", "visible");
-    } else {
-        saveChanges();
-        $(".todolist").css("visibility", "hidden");
-    }
-    if ($("#weather").css("visibility") == "hidden") {
-        $("#weather").css("visibility", "visible");
-    } else {
-        $("#weather").css("visibility", "hidden");
     }
 }
 
