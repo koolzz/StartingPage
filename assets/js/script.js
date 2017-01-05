@@ -2,14 +2,12 @@ $().ready(function() {
     //$('body').css('background-image', 'url("' + "fyzWfa7.png" + '")');
     updateTime();
     updateLinks();
-    updateWeather();
-    load();
+    //updateWeather();
     $(document).keydown(function(event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 46) {
             $("li", "#todolist").each(function(i) {
                 var target = $(this);
-                console.log(target.css("color"));
                 if (target.css("color") == 'rgba(125, 184, 196, 0.498039)')
                     $(this).remove();
             });
@@ -18,8 +16,6 @@ $().ready(function() {
     $("#todolist").click(function(event) {
         var target = $(event.target);
         if (target.is("li")) {
-
-            console.log(target.css("color"));
             if (target.css("color") == 'rgba(125, 184, 196, 0.498039)') {
                 target.css("color", '');
             } else {
@@ -36,7 +32,10 @@ $().ready(function() {
             return false; //negate newline
         }
     });
-
+    $("#showToDoList").click(function(e){
+        toggleToDoList();
+    });
+    /*
     $(this).click(function(e) {
         var container = new Array()
         container.push($("#center"));
@@ -47,13 +46,10 @@ $().ready(function() {
                 $(value).has(e.target).length === 0) {
                     $(".console").css("visibility","visible");
                     $("#console").focus();
-
             }
-
         });
+    });*/
 
-
-    });
 
 });
 
@@ -124,6 +120,16 @@ function showInfo() {
         $("#weather").css("visibility","hidden");
     }
 }
+function toggleToDoList(){
+    if ($(".todolist").css("display")=="none") {
+        load(function(){
+            $(".todolist").fadeIn(400);
+        });
+    } else {
+        saveChanges();
+        $(".todolist").fadeOut(400);
+    }
+}
 
 function saveChanges() {
     var value = "";
@@ -138,7 +144,7 @@ function saveChanges() {
 
 }
 
-function load() {
+function load(callback) {
     chrome.storage.sync.get("todolist", function(result) {
         $("#todolist").empty();
         var array = result.todolist.split(';');
@@ -148,6 +154,9 @@ function load() {
                 $("#todolist").append("<li>" + value + "</li>");
             }
         });
+        if(callback){
+            callback();
+        }
     });
 }
 

@@ -116,6 +116,17 @@ body {
 #weather p{
     margin: 0;
 }
+#showToDoList{
+    position: absolute;
+    font-size: 30px;
+    font-weight: normal;
+    left: 10px;
+    bottom: 25px;
+    transition: color 0.3s ease;
+}
+#showToDoList:hover{
+    color:#FCFFFC;
+}
 .hexagone {
     margin: 0 auto;
     margin-top: 50px;
