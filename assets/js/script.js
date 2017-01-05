@@ -42,7 +42,7 @@ $().ready(function() {
 
     $("#showToDoList").click(function(e) {
         toggleToDoList();
-    }); 
+    });
 });
 
 function updateLinks() {
@@ -128,12 +128,17 @@ function saveChanges() {
 
 function load(callback) {
     chrome.storage.sync.get("todolist", function(result) {
+        if(result.todolist===undefined){
+            saveChanges();
+            if (callback) {
+                callback();
+            }
+            return;
+        }
         var temp=$("#todolist").children();
-        console.log($("#todolist").children());
         $("#todolist").empty();
         var children=$("#todolist").find('li');
-
-        var array = result.todolist.split(';');console.log(array);
+        var array = result.todolist.split(';');
         $.each(array, function(key, value) {
             value.trim();
             if (value) {
