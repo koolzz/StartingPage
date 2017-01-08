@@ -34,11 +34,13 @@ body {
     width: 25%;
     height: 100px;
 }
-#todolistHeading{
+
+#todolistHeading {
     padding-left: 20px;
     font-weight: bold;
 }
-#console{
+
+#console {
     border: 0 none;
     outline: 0 none;
     overflow: hidden;
@@ -53,7 +55,8 @@ body {
     line-height: 1.8;
     transition: opacity 0.4s ease;
 }
-#console:focus{
+
+#console:focus {
     opacity: 1;
 }
 
@@ -65,7 +68,7 @@ body {
 }
 
 .time {
-    height:176px;
+    height: 176px;
     position: relative;
     color: #FCFFFC;
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
@@ -73,23 +76,40 @@ body {
     font-size: 150px;
     letter-spacing: 2px;
     padding-bottom: 10px;
+    position: relative;
 }
 
-.topPanel p{
+#clock {
+    display: inline-block;
+    margin: 0;
+}
+
+#weather {
+    display: inline-block;
+    position: absolute;
+    top: 55px;
+    margin: 0;
+    display: inline-block;
+    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+#weather p {
+    margin: 0;
+}
+
+#weather p:last-child {
+    padding-bottom: 20px;
+}
+
+.topPanel p {
     margin: 0;
     display: inline;
 }
-#weather{
-    color: #FCFFFC;
-    font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
-    font-weight: bold;
-    font-size: 45px;
-    letter-spacing: 2px;
-}
-#weather p{
-    margin: 0;
-}
-#showToDoList{
+
+#showToDoList {
     position: absolute;
     font-size: 25px;
     font-weight: normal;
@@ -97,9 +117,11 @@ body {
     bottom: 10px;
     transition: color 0.3s ease;
 }
-#showToDoList:hover{
-    color:#FCFFFC;
+
+#showToDoList:hover {
+    color: #FCFFFC;
 }
+
 .hexagone {
     margin: 0 auto;
     margin-top: 50px;

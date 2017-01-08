@@ -1,7 +1,7 @@
 $().ready(function() {
     updateTime();
     updateLinks();
-    //updateWeather();
+    updateWeather();
     $(document).keydown(function(event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 46) {
@@ -56,7 +56,7 @@ function updateLinks() {
         ["bot-r", "https://blackboard.gwu.edu/webapps/login/"],
     ]
     for (i = 0; i < link.length; i++) {
-        $("." + link[i][0]).attr("href",link[i][1]);
+        $("." + link[i][0]).attr("href", link[i][1]);
     }
 
 }
@@ -88,7 +88,7 @@ function addVal() {
             saveChanges();
             break;
         default:
-            var li=$('<li>')
+            var li = $('<li>')
                 .text(originalString);
             if ($(".todolist").css("display") == "none") {
                 load(function() {
@@ -128,21 +128,21 @@ function saveChanges() {
 
 function load(callback) {
     chrome.storage.sync.get("todolist", function(result) {
-        if(result.todolist===undefined){
+        if (result.todolist === undefined) {
             saveChanges();
             if (callback) {
                 callback();
             }
             return;
         }
-        var temp=$("#todolist").children();
+        var temp = $("#todolist").children();
         $("#todolist").empty();
-        var children=$("#todolist").find('li');
+        var children = $("#todolist").find('li');
         var array = result.todolist.split(';');
         $.each(array, function(key, value) {
             value.trim();
             if (value) {
-                var li=$('<li>')
+                var li = $('<li>')
                     .text(value);;
                 $("#todolist").append(li);
             }
@@ -168,13 +168,14 @@ function updateWeather() {
         woeid: '',
         unit: 'c',
         success: function(weather) {
-            html = weather.temp + '&deg;' + weather.units.temp;
-
+            var html = '<p>' + weather.temp + '</p>';
+            html += '<p>' + '&deg;' + weather.units.temp + '</p>';
+            $("#weather").css('color', weather.temp > 0 ? '#F0B67F' : '#63D2FF');
             $("#weather").html(html);
-
         },
-        error: function(error) {
-            $("#weather").html('<p>' + error + '</p>');
+        error: function(error) { 
+            console.log("Error with simpleWeather, retrying");
+            setTimeout(updateWeather, 5000);
         }
     });
 }
