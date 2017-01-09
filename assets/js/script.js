@@ -2,6 +2,7 @@ $().ready(function() {
     updateTime();
     updateLinks();
     updateWeather();
+    checkSetting();
     $(document).keydown(function(event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 46) {
@@ -87,6 +88,16 @@ function addVal() {
             $("#todolist li").eq(parseInt(keyword[1], 10)).remove();
             saveChanges();
             break;
+        case '!hideList':
+            chrome.storage.sync.set({
+                "showToDoList":"false"
+            });
+            break;
+        case '!showList':
+            chrome.storage.sync.set({
+                "showToDoList":"true"
+            });
+            break;
         default:
             var li = $('<li>')
                 .text(originalString);
@@ -162,6 +173,29 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     }
 });
 
+function checkSetting() {
+    checkSavedPreferences("showToDoList", function() {
+        load(function() {
+            $(".todolist").fadeIn(400);
+        });
+    });
+}
+
+function checkSavedPreferences(parameter, optionalCallback) {
+    chrome.storage.sync.get(parameter, function(result) {
+        var value = result[Object.keys(result)[0]];
+        if (value === undefined) {
+            chrome.storage.sync.set({
+                parameter: "true"
+            });
+            return;
+        }
+        if (value === 'true') {
+            optionalCallback();
+        }
+    });
+}
+
 function updateWeather() {
     $.simpleWeather({
         location: 'Arlington, VA',
@@ -173,7 +207,7 @@ function updateWeather() {
             $("#weather").css('color', weather.temp > 0 ? '#F0B67F' : '#63D2FF');
             $("#weather").html(html);
         },
-        error: function(error) { 
+        error: function(error) {
             console.log("Error with simpleWeather, retrying");
             setTimeout(updateWeather, 5000);
         }
