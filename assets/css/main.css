@@ -6,7 +6,7 @@ body {
     background-size: cover;
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     text-align: center;
 }
 
@@ -34,11 +34,13 @@ body {
     width: 25%;
     height: 100px;
 }
-#todolistHeading{
+
+#todolistHeading {
     padding-left: 20px;
     font-weight: bold;
 }
-#console{
+
+#console {
     border: 0 none;
     outline: 0 none;
     overflow: hidden;
@@ -53,7 +55,8 @@ body {
     line-height: 1.8;
     transition: opacity 0.4s ease;
 }
-#console:focus{
+
+#console:focus {
     opacity: 1;
 }
 
@@ -65,7 +68,7 @@ body {
 }
 
 .time {
-    height:176px;
+    height: 176px;
     position: relative;
     color: #FCFFFC;
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
@@ -75,31 +78,60 @@ body {
     padding-bottom: 10px;
 }
 
-.topPanel p{
+.topPanel p {
     margin: 0;
     display: inline;
 }
-#weather{
+
+#weather {
     color: #FCFFFC;
     font-family: "Roboto", "Consolas", "Helvetica", sans-serif;
     font-weight: bold;
     font-size: 45px;
     letter-spacing: 2px;
 }
-#weather p{
+
+#weather p {
     margin: 0;
 }
-#showToDoList{
+
+#showToDoList, #showSettings {
     position: absolute;
     font-size: 25px;
     font-weight: normal;
-    left: 10px;
     bottom: 10px;
     transition: color 0.3s ease;
 }
-#showToDoList:hover{
-    color:#FCFFFC;
+
+#showToDoList {
+    left: 10px;
 }
+
+#showSettings {
+    right: 10px;
+}
+
+#showToDoList:hover, #showSettings:hover {
+    color: #FCFFFC;
+}
+
+#mycolor {
+    position: relative;
+    background-color: #414A4C;
+    color: #ffffff;
+    top: 20px;
+}
+
+#settings {
+    position: absolute;
+    background-color: #ffffff;
+    right: 10px;
+    bottom: 40px;
+    opacity: 0;
+    width: 10rem;
+    height: 12rem;
+}
+
 .hexagone {
     margin: 0 auto;
     margin-top: 50px;

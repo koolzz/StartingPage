@@ -1,4 +1,6 @@
 $().ready(function() {
+    bg();
+    hideSettings();
     updateTime();
     updateLinks();
     //updateWeather();
@@ -43,6 +45,27 @@ $().ready(function() {
     $("#showToDoList").click(function(e) {
         toggleToDoList();
     });
+
+    $("#mycolor").hexColorPicker({
+        "container": "dialog",
+        'submitCallback': function() {
+            saveChanges($("#mycolor").val());
+        }
+    });
+
+    $("#showSettings").click(function(event) {
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            // odd clicks
+            hideSettings();
+        } else {
+            // even clicks
+            showSettingsPanel();
+        }
+        $(this).data("clicks", !clicks);
+
+    });
+
 });
 
 function updateLinks() {
@@ -56,7 +79,7 @@ function updateLinks() {
         ["bot-r", "https://blackboard.gwu.edu/webapps/login/"],
     ]
     for (i = 0; i < link.length; i++) {
-        $("." + link[i][0]).attr("href",link[i][1]);
+        $("." + link[i][0]).attr("href", link[i][1]);
     }
 
 }
@@ -88,7 +111,7 @@ function addVal() {
             saveChanges();
             break;
         default:
-            var li=$('<li>')
+            var li = $('<li>')
                 .text(originalString);
             if ($(".todolist").css("display") == "none") {
                 load(function() {
@@ -128,21 +151,21 @@ function saveChanges() {
 
 function load(callback) {
     chrome.storage.sync.get("todolist", function(result) {
-        if(result.todolist===undefined){
+        if (result.todolist === undefined) {
             saveChanges();
             if (callback) {
                 callback();
             }
             return;
         }
-        var temp=$("#todolist").children();
+        var temp = $("#todolist").children();
         $("#todolist").empty();
-        var children=$("#todolist").find('li');
+        var children = $("#todolist").find('li');
         var array = result.todolist.split(';');
         $.each(array, function(key, value) {
             value.trim();
             if (value) {
-                var li=$('<li>')
+                var li = $('<li>')
                     .text(value);;
                 $("#todolist").append(li);
             }
@@ -176,5 +199,38 @@ function updateWeather() {
         error: function(error) {
             $("#weather").html('<p>' + error + '</p>');
         }
+    });
+}
+
+function hideSettings() {
+    $("#settings").animate({
+        bottom: -200,
+        opacity: 0
+    }, 250);
+}
+
+function showSettingsPanel() {
+    $("#settings").animate({
+        bottom: "40px",
+        opacity: 1
+    }, 250);
+}
+
+function saveChanges(value) {
+    var key = "bgcolor",
+        testPrefs = value
+    var jsonfile = {};
+    jsonfile[key] = testPrefs;
+    chrome.storage.sync.set(jsonfile, function() {
+        $("body").css("background-color", testPrefs)
+    });
+}
+
+
+function bg() {
+    chrome.storage.sync.get('bgcolor', function(obj, item) {
+        $("body").css("background-color", obj.bgcolor)
+        $("#mycolor").val(obj.bgcolor)
+        $("#mycolor").css("background-color", obj.bgcolor)
     });
 }

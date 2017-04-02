@@ -6,11 +6,15 @@
 
     <link rel="stylesheet" href="assets/css/hexagons.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery-ui.min.css">
+    <link href="assets/css/jquery-hex-colorpicker.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="assets/js/jquery.simpleWeather.min.js"></script>
     <script type="text/javascript" src="assets/js/hexagons.js"></script>
     <script type="text/javascript" src="assets/js/fontawesome.js"></script>
     <script type="text/javascript" src="assets/js/script.js"></script>
+    <script src="assets/js/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/js/jquery-hex-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -42,8 +46,16 @@
             </div>!-->
         </div>
     </div>
-    <div>
-        <i id="showToDoList" class="fa fa-align-left"></i>
+    <i id="showToDoList" class="fa fa-align-left"></i>
+    <i id="showSettings" class="fa fa-sliders"></i>
+
+    <div id="settings">
+        <div id="colorPicker" style="width:128px;">
+            <input style="width:100px;" id="mycolor" class="colorPicker evo-cp0" placeholder="#414A4C" />
+            <div class="evo-colorind" style="background-color:#8db3e2"></div>
+        </div>
+
+    </div>
 </body>
 
 </html>
